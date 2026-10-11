@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "author": "AUI Robotics Challenge 2026 - Track B",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-uno",
+      "id": "uno",
+      "top": 290,
+      "left": 300,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "sonar",
+      "top": 60,
+      "left": 390,
+      "attrs": {
+        "distance": "20"
+      }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo",
+      "top": 90,
+      "left": 40,
+      "rotate": 180,
+      "attrs": {
+        "horn": "double"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_led",
+      "top": 200,
+      "left": 620,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led",
+      "top": 158,
+      "left": 700,
+      "attrs": {
+        "color": "green",
+        "flip": "1"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "sw",
+      "top": 360,
+      "left": 640,
+      "attrs": {
+        "color": "black"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "uno:7",
+      "sonar:TRIG",
+      "#f39c12",
+      [
+        "v-54",
+        "h-18",
+        "v-90"
+      ]
+    ],
+    [
+      "uno:6",
+      "sonar:ECHO",
+      "#8e44ad",
+      [
+        "v-69",
+        "h-17",
+        "v-75"
+      ]
+    ],
+    [
+      "uno:GND.1",
+      "sonar:GND",
+      "#222",
+      [
+        "v-99",
+        "h105",
+        "v-45",
+        "h-29"
+      ]
+    ],
+    [
+      "uno:5V",
+      "sonar:VCC",
+      "#e03131",
+      [
+        "v29",
+        "h-190",
+        "v-325",
+        "h191",
+        "v-30"
+      ]
+    ],
+    [
+      "uno:9",
+      "servo:PWM",
+      "#e0a800",
+      [
+        "v-39",
+        "h-213",
+        "v-115",
+        "h-40"
+      ]
+    ],
+    [
+      "uno:5V",
+      "servo:V+",
+      "#e03131",
+      [
+        "v29",
+        "h-200",
+        "v-355",
+        "h-50"
+      ]
+    ],
+    [
+      "uno:GND.2",
+      "servo:GND",
+      "#222",
+      [
+        "v44",
+        "h-224",
+        "v-361",
+        "h-35"
+      ]
+    ],
+    [
+      "uno:12",
+      "r_led:1",
+      "#2b8a3e",
+      [
+        "v-84",
+        "h166",
+        "v-9",
+        "h20"
+      ]
+    ],
+    [
+      "r_led:2",
+      "led:A",
+      "#2b8a3e",
+      [
+        "v-6",
+        "h36"
+      ]
+    ],
+    [
+      "led:C",
+      "uno:GND.3",
+      "#222",
+      [
+        "h35",
+        "v340",
+        "h-281",
+        "v-58"
+      ]
+    ],
+    [
+      "uno:2",
+      "sw:1.l",
+      "#1c7ed6",
+      [
+        "v-24",
+        "h79",
+        "v98",
+        "h25"
+      ]
+    ],
+    [
+      "sw:2.r",
+      "uno:GND.3",
+      "#222",
+      [
+        "h18",
+        "v148",
+        "h-246",
+        "v-58"
+      ]
+    ]
+  ],
+  "dependencies": {}
+}

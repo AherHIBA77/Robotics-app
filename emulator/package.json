@@ -1,0 +1,20 @@
+{
+  "name": "sim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@wokwi/elements": "^1.9.2",
+    "avr8js": "^0.21.1",
+    "esbuild": "^0.28.2",
+    "intel-hex": "^0.2.0",
+    "puppeteer-core": "^25.13.0"
+  }
+}

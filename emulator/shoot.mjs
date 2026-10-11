@@ -1,0 +1,15 @@
+import puppeteer from 'puppeteer-core';
+const out = process.argv[2] || 'shots';
+const b = await puppeteer.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox'] });
+const p = await b.newPage(); await p.setViewport({ width: 1600, height: 900 });
+await p.goto('file://' + process.cwd() + '/index.html'); await p.evaluate(() => window.ready);
+const step = async (code, name) => { await p.evaluate(code); await p.evaluate(() => window.render()); await p.screenshot({ path: `${out}/${name}.png` }); console.log(name); };
+await step(() => { board.distanceCm = 20; board.run(800); }, '1_idle_open');
+await step(() => { board.distanceCm = 4; board.run(500); }, '2_cube_4cm_closed');
+await step(() => { board.distanceCm = 6; board.run(1200); }, '3_hysteresis_6cm');
+await step(() => { board.distanceCm = 30; board.run(1300); }, '4_removed_open');
+await step(() => { board.distanceCm = null; board.setSwitch(true); board.run(300); }, '5_microswitch_closed');
+await step(() => { board.setSwitch(false); board.distanceCm = 3; board.run(400); board.send('r'); board.run(400); }, '6_release_r');
+import { writeFileSync } from 'fs';
+writeFileSync(out + '/diagram.json', JSON.stringify(await p.evaluate(() => window.diagram()), null, 2));
+await b.close();

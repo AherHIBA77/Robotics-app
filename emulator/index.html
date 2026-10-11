@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#fff;font-family:system-ui,sans-serif;width:1600px;height:900px;display:flex}
+#canvas{position:relative;width:1040px;height:900px;background:#f6f7f9;background-image:radial-gradient(#d9dce1 1px,transparent 1px);background-size:20px 20px}
+#canvas>*,#stage>*{position:absolute}
+#stage{left:0;top:0;width:780px;height:660px;transform-origin:0 0}
+#wires{left:0;top:0;width:780px;height:660px;pointer-events:none;z-index:2}
+#hud{left:30px;top:858px;font-size:13px!important;font:15px ui-monospace,monospace;color:#333;line-height:1.6;z-index:3}
+#dist{left:780px;top:110px;font:600 16px ui-monospace,monospace;background:#fff;border:1px solid #ccc;border-radius:6px;padding:3px 8px;z-index:3}
+.lbl{font:600 13px system-ui;color:#555;z-index:3}
+#state{left:30px;top:20px;font:700 22px system-ui;padding:6px 14px;border-radius:8px;z-index:3}
+#state.closed{background:#1f9d55;color:#fff}#state.open{background:#e5e7eb;color:#333}
+#badge{left:95px;top:330px;font:700 20px ui-monospace,monospace;padding:6px 12px;border-radius:8px;z-index:3}
+#badge.closed{background:#1f9d55;color:#fff}#badge.open{background:#e5e7eb;color:#333}
+#caption{left:40px;top:842px;z-index:5;background:#12161c;color:#f3f1ea;font:600 22px system-ui;padding:10px 22px;border-radius:10px;white-space:nowrap;display:none;transition:opacity .3s}
+#trackbox{left:40px;top:715px;width:960px;height:120px;z-index:3;display:none}
+#trackbox .bar{position:absolute;left:150px;right:20px;top:58px;height:6px;background:#cfd4da;border-radius:3px}
+#trackbox .zone{position:absolute;top:50px;height:22px;border-radius:4px}
+#trackbox .mark{position:absolute;top:80px;font:13px ui-monospace,monospace;color:#555;transform:translateX(-50%)}
+#trackbox .tick{position:absolute;top:44px;width:2px;height:34px;background:#333}
+#trackbox .sensor{position:absolute;left:0;top:30px;width:140px;font:600 14px system-ui;color:#333}
+#cube{position:absolute;top:36px;width:44px;height:44px;background:#c08a4a;border:2px solid #7a5426;border-radius:4px;transform:translateX(-50%);box-shadow:0 2px 4px #0003}
+#cube.gone{opacity:.25}
+#rx{position:absolute;right:20px;top:135px;font:700 20px ui-monospace,monospace;color:#1c7ed6}
+#side{flex:1;background:#1e1e1e;color:#d4d4d4;display:flex;flex-direction:column}
+#side h3{margin:0;padding:14px 18px;font:600 15px system-ui;background:#2d2d2d;color:#fff}
+#serial{padding:12px 18px;font:15px/1.55 ui-monospace,monospace;flex:1;overflow:hidden}
+#serial .ev{color:#4ec9b0;font-weight:700}#serial .sw{color:#dcdcaa}
+</style></head><body>
+<div id="canvas">
+  <div id="stage"><svg id="wires"></svg>
+  <wokwi-arduino-uno id="uno"></wokwi-arduino-uno>
+  <wokwi-hc-sr04 id="sonar"></wokwi-hc-sr04>
+  <wokwi-servo id="servo" horn="double"></wokwi-servo>
+  <wokwi-resistor id="r_led" value="220"></wokwi-resistor>
+  <wokwi-led id="led" color="green"></wokwi-led>
+  <wokwi-pushbutton id="sw" color="black"></wokwi-pushbutton>
+  </div><div id="dist"></div><div id="state"></div>
+            <div class="lbl" style="left:525px;top:60px">HC-SR04 ultrasonic</div>
+  <div class="lbl" style="left:55px;top:95px">SG90 servo = clamp</div>
+  <div class="lbl" style="left:840px;top:235px">220 Ω + LED</div>
+  <div class="lbl" style="left:860px;top:445px">microswitch</div>
+  <div id="badge"></div>
+  <div id="caption"></div>
+  <div id="trackbox"><div class="sensor">HC-SR04 ▶<br><span style="font-weight:400;font-size:12px">distance to cube</span></div>
+    <div class="bar"></div><div class="zone" id="z5"></div><div class="zone" id="z7"></div>
+    <div id="ticks"></div><div id="cube"></div><div id="rx"></div></div>
+  <div id="hud"><div id="angle"></div><div id="time"></div></div>
+</div>
+<div id="side"><h3>Serial Monitor · 115200 baud</h3><div id="serial"></div></div>
+<script src="bundle.js"></script></body></html>

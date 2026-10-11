@@ -1,0 +1,15 @@
+# Not part of the published project
+slides/
+video/*
+!video/Payload_Detector_Simulation.mp4
+SLIDE_SCRIPT.md
+VIDEO_SCRIPT.md
+
+# Build output
+emulator/node_modules/
+emulator/build/
+emulator/bundle.js
+emulator/package-lock.json
+tests/logic_test
+__pycache__/
+READ_ALOUD.txt

@@ -1,0 +1,14 @@
+import { readFileSync } from 'fs';
+import { Board } from './sim.mjs';
+const b = new Board(readFileSync('build/payload_detector.ino.hex', 'utf8'));
+let fails = 0;
+const chk = (n, c) => { console.log((c ? 'PASS ' : 'FAIL ') + n + `  [t=${b.ms.toFixed(0)}ms servo=${b.servoAngle} led=${b.led}]`); if (!c) fails++; };
+b.run(600); chk('boot: open, LED off', b.servoAngle === 0 && !b.led);
+b.distanceCm = 4; b.run(400); chk('cube at 4 cm -> closed, LED on', b.servoAngle === 90 && b.led);
+b.distanceCm = 6; b.run(1500); chk('6 cm hysteresis band -> stays closed', b.servoAngle === 90);
+b.distanceCm = 30; b.run(1300); chk('removed > 1 s -> opens', b.servoAngle === 0 && !b.led);
+b.distanceCm = null; b.setSwitch(true); b.run(200); chk('microswitch, no echo -> closed', b.servoAngle === 90 && b.led);
+b.setSwitch(false); b.distanceCm = 3; b.run(300); b.send('r'); b.run(300); chk("'r' -> released", b.servoAngle === 0 && !b.led);
+b.run(1500); chk('cube still there -> stays open', b.servoAngle === 0);
+console.log('--- serial tail ---\n' + b.serial.split('\n').filter(l => l.startsWith('>>') || l.startsWith('switch') || l.startsWith('Payload')).join('\n'));
+console.log(fails ? fails + ' FAILED' : 'ALL PASS'); process.exit(fails);
